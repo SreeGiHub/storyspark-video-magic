@@ -1,8 +1,11 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <header className="container mx-auto px-4 py-6">
       <div className="flex items-center justify-between">
@@ -31,7 +34,10 @@ const Header: React.FC = () => {
               </li>
             </ul>
           </nav>
-          <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+          <Button 
+            className="bg-indigo-600 hover:bg-indigo-700 text-white"
+            onClick={() => navigate("/signup")}
+          >
             Get Started
           </Button>
         </div>

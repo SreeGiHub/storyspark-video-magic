@@ -2,8 +2,11 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Footer: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <footer className="py-20 bg-gradient-to-b from-storyspark-soft-gray to-white">
       <div className="container mx-auto px-4">
@@ -19,7 +22,10 @@ const Footer: React.FC = () => {
             It's free and takes less than 2 minutes.
           </p>
           
-          <Button className="bg-indigo-600 hover:bg-indigo-700 text-white text-lg py-6 px-10">
+          <Button 
+            className="bg-indigo-600 hover:bg-indigo-700 text-white text-lg py-6 px-10"
+            onClick={() => navigate("/signup")}
+          >
             Get Started
           </Button>
           
