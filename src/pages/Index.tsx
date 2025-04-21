@@ -1,18 +1,24 @@
+
 import React from "react";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import StatsSection from "@/components/StatsSection";
+import HowItWorks from "@/components/HowItWorks";
+import UseCases from "@/components/UseCases";
+import TechSection from "@/components/TechSection";
+import Footer from "@/components/Footer";
 
 const Index: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
-    <div>
+    <div className="min-h-screen bg-white font-poppins">
       <Header />
-      <HeroSection />
-      <Button onClick={() => navigate("/signup")}>Get Started</Button>
+      <main>
+        <HeroSection />
+        <StatsSection />
+        <HowItWorks />
+        <UseCases />
+        <TechSection />
+      </main>
       <Footer />
     </div>
   );
