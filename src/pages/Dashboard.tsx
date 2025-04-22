@@ -1,30 +1,32 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, Archive, Film, Image, Search } from "lucide-react";
 import { ProjectCard } from "@/components/dashboard/ProjectCard";
-import { FolderCard } from "@/components/dashboard/FolderCard";
+import { VideoCard } from "@/components/dashboard/VideoCard";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
-import { Project, Folder } from "@/types/project";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Project } from "@/types/project";
 
 const projects: Project[] = [
   {
     id: "1",
-    title: "My First Story",
+    title: "Circle Website Design Review",
     status: "Draft",
     createdAt: "2024-04-22T10:00:00Z",
     thumbnailUrl: "/placeholder.svg",
     imageCount: 5,
-    duration: 120,
+    duration: 132,
   },
-];
-
-const folders: Folder[] = [
   {
-    id: "1",
-    title: "Welcome Stories",
-    storyCount: 1,
+    id: "2",
+    title: "Spotify Playlist UX Feedback Session",
+    status: "Completed",
+    createdAt: "2024-04-21T15:30:00Z",
+    thumbnailUrl: "/placeholder.svg",
+    imageCount: 8,
+    duration: 1500,
   },
 ];
 
@@ -33,94 +35,71 @@ const Dashboard: React.FC = () => {
     console.log("Create new story");
   };
 
-  const handleCreateFolder = () => {
-    console.log("Create new folder");
-  };
-
-  const handleFolderOpen = (id: string) => {
-    console.log("Open folder", id);
-  };
-
-  const handleFolderRename = (id: string) => {
-    console.log("Rename folder", id);
-  };
-
-  const handleFolderDelete = (id: string) => {
-    console.log("Delete folder", id);
-  };
-
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gradient-to-br from-purple-50 to-purple-100/50">
+      <div className="min-h-screen flex w-full bg-white">
         <AppSidebar />
         <SidebarInset className="p-6">
           <div className="max-w-7xl mx-auto space-y-8">
-            {/* My Folders Section */}
-            <section>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">My Folders</h2>
-                <Button
-                  onClick={handleCreateFolder}
-                  variant="outline"
-                  className="gap-2 hover:bg-white hover:shadow-md transition-all duration-200"
-                >
-                  <Plus className="h-4 w-4" />
-                  New Folder
-                </Button>
+            {/* Header Section */}
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <h1 className="text-2xl font-semibold text-gray-900">Video Library</h1>
+                <Tabs defaultValue="videos" className="w-full">
+                  <TabsList className="bg-transparent p-0 text-base">
+                    <TabsTrigger 
+                      value="videos" 
+                      className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-purple-600 px-0 mr-6"
+                    >
+                      <Film className="w-4 h-4 mr-2" />
+                      Videos
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="archives" 
+                      className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-purple-600 px-0 mr-6"
+                    >
+                      <Archive className="w-4 h-4 mr-2" />
+                      Archives
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="screenshots" 
+                      className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-purple-600 px-0"
+                    >
+                      <Image className="w-4 h-4 mr-2" />
+                      Screenshots
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {folders.map((folder) => (
-                  <FolderCard
-                    key={folder.id}
-                    folder={folder}
-                    onOpen={handleFolderOpen}
-                    onRename={handleFolderRename}
-                    onDelete={handleFolderDelete}
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search videos..."
+                    className="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg w-64 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   />
-                ))}
-              </div>
-            </section>
-
-            {/* Recent Stories Section */}
-            <section>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">Recent Stories</h2>
-                <Button onClick={handleCreateStory} className="bg-purple-600 hover:bg-purple-700 hover:shadow-md gap-2 transition-all duration-200">
-                  <Plus className="h-4 w-4" />
-                  Create New Story
+                </div>
+                <Button onClick={handleCreateStory} className="bg-purple-600 hover:bg-purple-700 gap-2">
+                  <Plus className="w-4 h-4" />
+                  Create Video
                 </Button>
               </div>
+            </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {projects.length === 0 ? (
-                  <div className="col-span-full flex flex-col items-center justify-center py-16 bg-white/50 rounded-2xl border border-purple-100 shadow-sm">
-                    <div className="text-center">
-                      <h3 className="text-xl text-gray-600 mb-4 font-medium">
-                        You don't have any stories yet
-                      </h3>
-                      <p className="text-gray-500 mb-6">
-                        Click 'Create New Story' to get started!
-                      </p>
-                      <Button onClick={handleCreateStory} className="bg-purple-600 hover:bg-purple-700 gap-2">
-                        <Plus className="h-4 w-4" />
-                        Create New Story
-                      </Button>
-                    </div>
-                  </div>
-                ) : (
-                  projects.map((project) => (
-                    <ProjectCard
-                      key={project.id}
-                      project={project}
-                      onEdit={() => console.log("Edit", project.id)}
-                      onDelete={() => console.log("Delete", project.id)}
-                      onDownload={() => console.log("Download", project.id)}
-                    />
-                  ))
-                )}
-              </div>
-            </section>
+            {/* Videos Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {projects.map((project) => (
+                <VideoCard
+                  key={project.id}
+                  title={project.title}
+                  duration={`${Math.floor(project.duration / 60)}m ${project.duration % 60}s`}
+                  createdAt={project.createdAt}
+                  thumbnailUrl={project.thumbnailUrl}
+                  uploaderInitials="AJ"
+                />
+              ))}
+            </div>
           </div>
         </SidebarInset>
       </div>
