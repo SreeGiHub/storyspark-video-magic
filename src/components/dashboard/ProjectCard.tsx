@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Edit2, Download, Trash2, Image, Clock } from "lucide-react";
 import { Project } from "@/types/project";
 import { format } from "date-fns";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface ProjectCardProps {
   project: Project;
@@ -26,44 +27,72 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   return (
-    <Card className="group overflow-hidden hover:shadow-lg transition-all duration-200">
+    <Card className="group overflow-hidden hover:shadow-lg transition-all duration-200 border-purple-100 bg-white/70">
       <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-purple-100 to-purple-50">
         <img
           src={project.thumbnailUrl}
           alt={project.title}
           className="object-cover w-full h-full"
         />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors">
-          <div className="absolute bottom-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={() => onEdit(project.id)}
-            >
-              <Edit2 className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={() => onDownload(project.id)}
-            >
-              <Download className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="secondary"
-              size="icon"
-              className="hover:text-red-600"
-              onClick={() => onDelete(project.id)}
-            >
-              <Trash2 className="w-4 h-4" />
-            </Button>
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300">
+          <div className="absolute bottom-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onEdit(project.id);
+                  }}
+                  className="bg-white/80 hover:bg-white"
+                >
+                  <Edit2 className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Edit story</TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDownload(project.id);
+                  }}
+                  className="bg-white/80 hover:bg-white"
+                >
+                  <Download className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Download story</TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="bg-white/80 hover:bg-white hover:text-red-600"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete(project.id);
+                  }}
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Delete story</TooltipContent>
+            </Tooltip>
           </div>
         </div>
       </div>
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="font-semibold text-lg truncate">{project.title}</h3>
-          <span className={`px-2 py-1 rounded-full text-xs ${statusColors[project.status]}`}>
+          <h3 className="font-semibold text-lg truncate text-gray-800">{project.title}</h3>
+          <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[project.status]}`}>
             {project.status}
           </span>
         </div>

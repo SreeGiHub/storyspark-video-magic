@@ -5,7 +5,7 @@ import { Plus } from "lucide-react";
 import { ProjectCard } from "@/components/dashboard/ProjectCard";
 import { FolderCard } from "@/components/dashboard/FolderCard";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Project, Folder } from "@/types/project";
 
 const projects: Project[] = [
@@ -53,7 +53,7 @@ const Dashboard: React.FC = () => {
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-gradient-to-br from-purple-50 to-purple-100/50">
         <AppSidebar />
-        <main className="flex-1 p-8">
+        <SidebarInset className="p-6">
           <div className="max-w-7xl mx-auto space-y-8">
             {/* My Folders Section */}
             <section>
@@ -62,14 +62,14 @@ const Dashboard: React.FC = () => {
                 <Button
                   onClick={handleCreateFolder}
                   variant="outline"
-                  className="gap-2"
+                  className="gap-2 hover:bg-white hover:shadow-md transition-all duration-200"
                 >
                   <Plus className="h-4 w-4" />
                   New Folder
                 </Button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {folders.map((folder) => (
                   <FolderCard
                     key={folder.id}
@@ -86,21 +86,27 @@ const Dashboard: React.FC = () => {
             <section>
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-800">Recent Stories</h2>
-                <Button onClick={handleCreateStory} className="bg-purple-600 hover:bg-purple-700 gap-2">
+                <Button onClick={handleCreateStory} className="bg-purple-600 hover:bg-purple-700 hover:shadow-md gap-2 transition-all duration-200">
                   <Plus className="h-4 w-4" />
                   Create New Story
                 </Button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {projects.length === 0 ? (
-                  <div className="col-span-full text-center py-12 bg-white/50 rounded-2xl border border-purple-100">
-                    <h3 className="text-xl text-gray-600 mb-4">
-                      You don't have any stories yet
-                    </h3>
-                    <p className="text-gray-500 mb-6">
-                      Click 'Create New Story' to get started!
-                    </p>
+                  <div className="col-span-full flex flex-col items-center justify-center py-16 bg-white/50 rounded-2xl border border-purple-100 shadow-sm">
+                    <div className="text-center">
+                      <h3 className="text-xl text-gray-600 mb-4 font-medium">
+                        You don't have any stories yet
+                      </h3>
+                      <p className="text-gray-500 mb-6">
+                        Click 'Create New Story' to get started!
+                      </p>
+                      <Button onClick={handleCreateStory} className="bg-purple-600 hover:bg-purple-700 gap-2">
+                        <Plus className="h-4 w-4" />
+                        Create New Story
+                      </Button>
+                    </div>
                   </div>
                 ) : (
                   projects.map((project) => (
@@ -116,7 +122,7 @@ const Dashboard: React.FC = () => {
               </div>
             </section>
           </div>
-        </main>
+        </SidebarInset>
       </div>
     </SidebarProvider>
   );
