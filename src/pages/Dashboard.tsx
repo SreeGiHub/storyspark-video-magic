@@ -1,17 +1,16 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Plus, Archive, Film, Image, Search } from "lucide-react";
+import { Plus, Bell, Search } from "lucide-react";
 import { VideoCard } from "@/components/dashboard/VideoCard";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Project } from "@/types/project";
 
 const projects: Project[] = [
   {
     id: "1",
-    title: "Circle Website Design Review - Complete Walkthrough and Analysis of the New Homepage Layout",
+    title: "UI Design Feedback",
     status: "Draft",
     createdAt: "2024-04-22T10:00:00Z",
     thumbnailUrl: "/placeholder.svg",
@@ -20,79 +19,60 @@ const projects: Project[] = [
   },
   {
     id: "2",
-    title: "Spotify Playlist UX Feedback Session",
+    title: "History Chapter Narration",
     status: "Completed",
     createdAt: "2024-04-21T15:30:00Z",
     thumbnailUrl: "/placeholder.svg",
     imageCount: 8,
     duration: 1500,
   },
+  {
+    id: "3",
+    title: "Weekly Story Recap",
+    status: "Draft",
+    createdAt: "2024-04-20T09:15:00Z",
+    thumbnailUrl: "/placeholder.svg",
+    imageCount: 3,
+    duration: 845,
+  },
 ];
 
-const Dashboard: React.FC = () => {
-  const handleCreateStory = () => {
-    console.log("Create new story");
-  };
-
+const Dashboard = () => {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
+      <div className="min-h-screen flex w-full bg-[#1C1C1E]">
         <AppSidebar />
-        <SidebarInset className="p-6">
-          <div className="max-w-[1600px] mx-auto space-y-6">
+        <SidebarInset className="flex-1">
+          <div className="p-6 max-w-[1600px] mx-auto w-full">
             {/* Header Section */}
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              <div className="flex-1 min-w-[280px]">
-                <h1 className="text-xl font-semibold text-foreground mb-4">Video Library</h1>
-                <Tabs defaultValue="videos" className="w-full">
-                  <TabsList className="bg-transparent p-0 text-base">
-                    <TabsTrigger 
-                      value="videos" 
-                      className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-purple-600 px-0 mr-6"
-                    >
-                      <Film className="w-4 h-4 mr-2" />
-                      Videos
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="archives" 
-                      className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-purple-600 px-0 mr-6"
-                    >
-                      <Archive className="w-4 h-4 mr-2" />
-                      Archives
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="screenshots" 
-                      className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-purple-600 px-0"
-                    >
-                      <Image className="w-4 h-4 mr-2" />
-                      Screenshots
-                    </TabsTrigger>
-                  </TabsList>
-                </Tabs>
-              </div>
+            <div className="flex items-center justify-between mb-8">
+              <h1 className="text-2xl font-semibold text-white">Home</h1>
               <div className="flex items-center gap-4">
                 <div className="relative">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="Search videos..."
-                    className="pl-9 pr-4 py-2 bg-accent/10 border-0 rounded-full w-[280px] text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-background"
+                    placeholder="Search something..."
+                    className="pl-9 pr-4 py-2 bg-[#2C2C2E] border-0 rounded-full w-[280px] text-sm text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8AFF6C]"
                   />
                 </div>
-                <Button onClick={handleCreateStory} className="bg-purple-600 hover:bg-purple-700 rounded-full gap-2">
+                <Button className="bg-[#8AFF6C] hover:bg-[#7AEF5C] text-black rounded-full gap-2">
                   <Plus className="w-4 h-4" />
-                  Create Video
+                  Create
+                </Button>
+                <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+                  <Bell className="w-5 h-5" />
                 </Button>
               </div>
             </div>
 
-            {/* Videos Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6">
+            {/* Video Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects.map((project) => (
                 <VideoCard
                   key={project.id}
                   title={project.title}
-                  duration={`${Math.floor(project.duration / 60)}m ${project.duration % 60}s`}
+                  duration={`${Math.floor(project.duration / 60)}:${String(project.duration % 60).padStart(2, '0')}`}
                   createdAt={project.createdAt}
                   thumbnailUrl={project.thumbnailUrl}
                   uploaderInitials="AJ"
