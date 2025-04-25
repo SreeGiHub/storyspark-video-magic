@@ -30,18 +30,19 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem key={item.title} className="flex items-center justify-center">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <SidebarMenuButton 
                         asChild 
                         tooltip={item.title}
+                        className="p-3 hover:bg-accent/30 rounded-lg transition-all duration-200 flex items-center justify-center"
                       >
                         <button 
                           onClick={() => navigate(item.url)}
-                          className="p-3 hover:bg-white/30 rounded-lg transition-all duration-200"
+                          className="flex items-center justify-center"
                         >
-                          <item.icon className="w-5 h-5 text-gray-700" />
+                          <item.icon className="w-5 h-5 text-foreground" />
                           <span className="sr-only">{item.title}</span>
                         </button>
                       </SidebarMenuButton>
