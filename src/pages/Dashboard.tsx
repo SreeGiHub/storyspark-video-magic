@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Plus, Bell, Search } from "lucide-react";
@@ -36,12 +37,12 @@ const projects: Project[] = [
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen w-full bg-[#1C1C1E]">
+    <div className="min-h-screen w-full bg-white">
       <div className="p-6 max-w-[1600px] mx-auto w-full">
         {/* Header Section */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-6">
-            <h1 className="text-2xl font-semibold text-white">Home</h1>
+            <h1 className="text-2xl font-semibold text-gray-900">Home</h1>
           </div>
           <div className="flex items-center gap-4">
             <div className="relative">
@@ -49,14 +50,14 @@ const Dashboard = () => {
               <input
                 type="text"
                 placeholder="Search something..."
-                className="pl-9 pr-4 py-2 bg-[#2C2C2E] border-0 rounded-full w-[280px] text-sm text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8AFF6C]"
+                className="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full w-[280px] text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9b87f5]"
               />
             </div>
-            <Button className="bg-[#8AFF6C] hover:bg-[#7AEF5C] text-black rounded-full gap-2">
+            <Button className="bg-[#9b87f5] hover:bg-[#8674e1] text-white rounded-full gap-2 transition-colors">
               <Plus className="w-4 h-4" />
               Create
             </Button>
-            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+            <Button variant="ghost" size="icon" className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">
               <Bell className="w-5 h-5" />
             </Button>
           </div>
