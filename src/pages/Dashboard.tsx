@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Plus, Bell, Search } from "lucide-react";
 import { VideoCard } from "@/components/dashboard/VideoCard";
 import { Project } from "@/types/project";
+import { Link } from "react-router-dom";
+
 const projects: Project[] = [{
   id: "1",
   title: "UI Design Feedback",
@@ -28,6 +30,7 @@ const projects: Project[] = [{
   imageCount: 3,
   duration: 845
 }];
+
 const Dashboard = () => {
   return <div className="min-h-screen w-full bg-white">
       <div className="p-6 max-w-[1600px] mx-auto w-full">
@@ -35,16 +38,19 @@ const Dashboard = () => {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-6">
             <h1 className="text-purple-500 text-2xl font-extrabold">StorySpark</h1>
+            <Link to="/" className="text-gray-600 hover:text-gray-900">Home</Link>
           </div>
           <div className="flex items-center gap-4">
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input type="text" placeholder="Search something..." className="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full w-[280px] text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9b87f5]" />
             </div>
-            <Button className="bg-[#9b87f5] hover:bg-[#8674e1] text-white rounded-full gap-2 transition-colors">
-              <Plus className="w-4 h-4" />
-              Create
-            </Button>
+            <Link to="/create">
+              <Button className="bg-[#9b87f5] hover:bg-[#8674e1] text-white rounded-full gap-2 transition-colors">
+                <Plus className="w-4 h-4" />
+                Create
+              </Button>
+            </Link>
             <Button variant="ghost" size="icon" className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">
               <Bell className="w-5 h-5" />
             </Button>
@@ -58,4 +64,5 @@ const Dashboard = () => {
       </div>
     </div>;
 };
+
 export default Dashboard;
