@@ -31,6 +31,14 @@ export const VideoCreator = () => {
     }, 1000);
   };
 
+  // Function to reorder images
+  const reorderImages = (startIndex: number, endIndex: number) => {
+    const result = Array.from(images);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    setImages(result);
+  };
+
   return (
     <div className="space-y-6">
       <Card className="p-6 bg-white shadow-sm border border-gray-100">
@@ -47,7 +55,7 @@ export const VideoCreator = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           <div className="md:col-span-3">
-            <ImageUploader images={images} setImages={setImages} />
+            <ImageUploader images={images} setImages={setImages} onReorder={reorderImages} />
           </div>
           <div className="md:col-span-6">
             <NarrationList images={images} />
