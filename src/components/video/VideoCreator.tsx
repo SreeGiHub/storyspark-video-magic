@@ -1,11 +1,9 @@
-
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { ImageUploader } from './ImageUploader';
 import { NarrationList } from './NarrationList';
-import { DurationSettings } from './DurationSettings';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 export const VideoCreator = () => {
@@ -53,15 +51,12 @@ export const VideoCreator = () => {
           </ToggleGroup>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          <div className="md:col-span-3">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="md:col-span-1">
             <ImageUploader images={images} setImages={setImages} onReorder={reorderImages} />
           </div>
-          <div className="md:col-span-6">
-            <NarrationList images={images} />
-          </div>
           <div className="md:col-span-3">
-            <DurationSettings images={images} />
+            <NarrationList images={images} />
           </div>
         </div>
 

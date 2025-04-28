@@ -4,7 +4,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { AudioWaveform, Play } from 'lucide-react';
+import { AudioWaveform, Video, Play } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 interface NarrationListProps {
   images: { id: string; url: string }[];
@@ -20,11 +21,16 @@ const languages = [
 
 export const NarrationList: React.FC<NarrationListProps> = ({ images }) => {
   const [previewingAudio, setPreviewingAudio] = useState<string | null>(null);
+  const [previewingVideo, setPreviewingVideo] = useState<string | null>(null);
   
   const handlePreviewAudio = (imageId: string) => {
-    // In a real implementation, this would generate or play the audio
-    // For now, we'll just toggle the preview state
     setPreviewingAudio(prevId => prevId === imageId ? null : imageId);
+    setPreviewingVideo(null); // Stop video preview when audio starts
+  };
+
+  const handlePreviewVideo = (imageId: string) => {
+    setPreviewingVideo(prevId => prevId === imageId ? null : imageId);
+    setPreviewingAudio(null); // Stop audio preview when video starts
   };
   
   return (
@@ -60,24 +66,54 @@ export const NarrationList: React.FC<NarrationListProps> = ({ images }) => {
                     </SelectContent>
                   </Select>
                   
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className={`flex items-center gap-1 ${previewingAudio === image.id ? 'bg-[#9b87f5]/10 border-[#9b87f5]' : ''}`}
-                    onClick={() => handlePreviewAudio(image.id)}
-                  >
-                    {previewingAudio === image.id ? (
-                      <>
-                        <AudioWaveform className="h-4 w-4 text-[#9b87f5]" />
-                        Stop Preview
-                      </>
-                    ) : (
-                      <>
-                        <Play className="h-4 w-4" />
-                        Preview Audio
-                      </>
-                    )}
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className={`flex items-center gap-1 ${previewingAudio === image.id ? 'bg-[#9b87f5]/10 border-[#9b87f5]' : ''}`}
+                      onClick={() => handlePreviewAudio(image.id)}
+                    >
+                      {previewingAudio === image.id ? (
+                        <>
+                          <AudioWaveform className="h-4 w-4 text-[#9b87f5]" />
+                          Stop Audio
+                        </>
+                      ) : (
+                        <>
+                          <Play className="h-4 w-4" />
+                          Preview Audio
+                        </>
+                      )}
+                    </Button>
+
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className={`flex items-center gap-1 ${previewingVideo === image.id ? 'bg-[#9b87f5]/10 border-[#9b87f5]' : ''}`}
+                      onClick={() => handlePreviewVideo(image.id)}
+                    >
+                      {previewingVideo === image.id ? (
+                        <>
+                          <Video className="h-4 w-4 text-[#9b87f5]" />
+                          Stop Video
+                        </>
+                      ) : (
+                        <>
+                          <Video className="h-4 w-4" />
+                          Preview Video
+                        </>
+                      )}
+                    </Button>
+
+                    <Input
+                      type="number"
+                      min="1"
+                      step="0.1"
+                      defaultValue="5"
+                      className="w-24"
+                      placeholder="Duration (s)"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
